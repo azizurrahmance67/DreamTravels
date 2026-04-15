@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Buses - Dream Travels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            background: #1a1a1a; 
+            color: white; 
+            font-family: 'Poppins', sans-serif; 
+            padding: 20px; 
+            margin: 0;
+        }
+        
+        h1 { 
+            text-align: center; 
+            margin-bottom: 30px; 
+            font-weight: 300;
+        }
+
+        .card { 
+            background: #2d2d2d; 
+            border-radius: 15px; 
+            max-width: 800px; 
+            margin: 20px auto; 
+            display: flex; 
+            align-items: stretch; 
+            height: 160px; 
+            border-left: 6px solid #e759a7; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3); 
+            overflow: hidden;
+        }
+
+        .bus-info { 
+            flex: 3; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center;
+        }
+
+        .bus-header { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 15px;
+        }
+
+        .bus-name { 
+            margin: 0; 
+            font-size: 20px; 
+            color: #878deb; 
+        }
+
+        .travel-date { 
+            color: #ffb8e0; 
+            font-size: 14px; 
+            font-weight: bold;
+        }
+
+        .route-details { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            background: rgba(255,255,255,0.03); 
+            padding: 12px; 
+            border-radius: 10px;
+        }
+
+        .time-stop { 
+            text-align: center;
+        }
+
+        .time-stop b { 
+            display: block; 
+            font-size: 18px; 
+        }
+
+        .time-stop span { 
+            font-size: 12px; 
+            color: #aaa; 
+        }
+
+        .divider { 
+            flex-grow: 1; 
+            margin: 0 15px; 
+            border-top: 1px dashed #555; 
+            position: relative;
+        }
+
+        .divider::after { 
+            content: "🚌"; 
+            position: absolute; 
+            top: -12px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: #2d2d2d; 
+            padding: 0 5px;
+        }
+
+        .price-section { 
+            flex: 1; 
+            background: rgba(231, 89, 167, 0.05); 
+            border-left: 1px dashed #444; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 15px;
+        }
+
+        .fare { 
+            font-size: 24px; 
+            font-weight: bold; 
+            color: #fff; 
+            margin-bottom: 10px;
+        }
+
+        .btn { 
+            background: #e759a7; 
+            color: white; 
+            padding: 10px 20px; 
+            text-decoration: none; 
+            border-radius: 8px; 
+            font-weight: bold; 
+            font-size: 14px; 
+            transition: 0.3s; 
+            text-transform: uppercase;
+        }
+
+        .btn:hover { 
+            background: #d44996; 
+            transform: scale(1.05); 
+        }
+
+        .no-bus { 
+            text-align: center; 
+            color: #aaa; 
+            margin-top: 50px; 
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Available Buses: {{ from_loc }} to {{ to_loc }}</h1>
+    
+    {% if buses %}
+        {% for bus in buses %}
+        <div class="card">
+            <div class="bus-info">
+                <div class="bus-header">
+                    <h3 class="bus-name">{{ bus[1] }}</h3>
+                    <span class="travel-date">📅 {{ date }}</span>
+                </div>
+
+                <div class="route-details">
+                    <div class="time-stop">
+                        <b>{{ bus[4]|string|truncate(5, True, '') }}</b>
+                        <span>{{ from_loc }}</span>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="time-stop">
+                        <b>{{ bus[7]|string|truncate(5, True, '') }}</b>
+                        <span>{{ to_loc }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="price-section">
+                <div class="fare">
+                    <span style="font-size: 14px; color: #e759a7;">৳</span>{{ bus[6] }}
+                </div>
+                
+                <a href="/book/{{ bus[0] }}?date={{ date }}" class="btn">Select Seat</a>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="no-bus">
+            <p>দুঃখিত, আপনার সিলেক্ট করা রুটে কোনো বাস পাওয়া যায়নি।</p>
+        </div>
+    {% endif %}
+
+</body>
+</html>

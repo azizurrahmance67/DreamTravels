@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Ticket - Dream Travels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* টিকিট কার্ড ডিজাইন */
+        #ticket {
+            max-width: 450px;
+            margin: 30px auto;
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            color: #333;
+        }
+
+        .header {
+            background: #e759a7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .content { padding: 25px; }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .bus-info { margin-bottom: 15px; }
+        
+        .time-box {
+            display: flex;
+            justify-content: space-between;
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .footer-info {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .status-msg {
+            background: #2d2d2d;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        small { color: #888; text-transform: uppercase; font-size: 10px; display: block; }
+        .bold { font-weight: bold; }
+
+        /* প্রিন্ট করার জন্য স্পেশাল সেটিংস */
+        @media print {
+            body { background: white; padding: 0; }
+            button { display: none; } /* প্রিন্ট করার সময় বাটন দেখাবে না */
+            #ticket { 
+                box-shadow: none; 
+                margin: 0 auto; 
+                border: 1px solid #ddd;
+            }
+        }
+
+        .download-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 12px;
+            background: #878deb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .download-btn:hover { background: #6c75d1; }
+    </style>
+</head>
+<body>
+
+    <div id="ticket">
+        <div class="header">
+            <h2 style="margin: 0;">DREAM TRAVELS</h2>
+            <p style="margin: 5px 0 0 0; font-size: 12px;">E-TICKET CONFIRMATION</p>
+        </div>
+
+        <div class="content">
+            <div class="info-row">
+                <div><small>PASSENGER</small><div class="bold">{{ ticket.passenger }}</div></div>
+                <div style="text-align: right;"><small>DATE</small><div class="bold" style="color: #e759a7;">{{ ticket.date }}</div></div>
+            </div>
+
+            <div class="bus-info">
+                <small>COACH / BUS</small>
+                <div class="bold">{{ ticket.bus_name }}</div>
+            </div>
+
+            <div class="time-box">
+                <div style="text-align: center;"><small>DEP.</small><div class="bold">{{ ticket.departure }}</div></div>
+                <div style="font-size: 18px; color: #e759a7;">➔</div>
+                <div style="text-align: center;"><small>ARR.</small><div class="bold">{{ ticket.arrival }}</div></div>
+            </div>
+
+            <div class="footer-info">
+                <div><small>SEAT(S)</small><div class="bold" style="color: #e759a7;">{{ ticket.seats }}</div></div>
+                <div style="text-align: right;">
+                    <small>TOTAL FARE</small>
+                    <div class="bold" style="font-size: 18px;">৳{{ ticket.total_fare }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="status-msg">
+            Safe Journey! Please keep this copy for boarding.
+        </div>
+    </div>
+
+    <button class="download-btn" onclick="window.print()"> Print </button>
+
+</body>
+</html>

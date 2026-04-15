@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <title>Dream Travels - Search</title>
+    <style>
+        body {
+            /* নিশ্চিত করুন static ফোল্ডারে 'dream travels bus.jpg' ছবিটি আছে */
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/static/dream travels bus.jpg'); 
+            background-size: cover; 
+            background-position: center; 
+            font-family: Arial, sans-serif;
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh;
+        }
+        .container { 
+            background: rgba(0,0,0,0.7); 
+            padding: 40px; 
+            border-radius: 15px; 
+            width: 400px; 
+            color: white; 
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        h1 { color: #878deb; margin-bottom: 25px; }
+        select, input, button { 
+            width: 100%; 
+            padding: 12px; 
+            margin: 10px 0; 
+            border-radius: 5px; 
+            border: none; 
+            font-size: 16px; 
+            box-sizing: border-box;
+        }
+        button { 
+            background: #e759a7; 
+            color: white; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+        button:hover { background: #d44996; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>SEARCH YOUR DREAM JOURNEY</h1>
+        <form action="/search" method="POST">
+            <select name="from-location" required>
+                <option value="">From</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Chittagong">Chittagong</option>
+            </select>
+            <select name="to-location" required>
+                <option value="">To</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Chittagong">Chittagong</option>
+            </select>
+            <input type="date" name="date" required>
+            <button type="submit">SEARCH BUS</button>
+        </form>
+    </div>
+</body>
+</html>

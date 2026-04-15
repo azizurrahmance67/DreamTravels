@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Seat - Dream Travels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            margin: 0;
+            padding: 10px;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h2 { text-align: center; margin: 10px 0; font-size: 18px; letter-spacing: 1px; }
+
+        .bus-container {
+            background: #2d2d2d;
+            width: 250px;
+            margin: 0 auto;
+            padding: 15px;
+            border-radius: 35px 35px 15px 15px;
+            border: 3px solid #444;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .cabin-front {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 0 5px 10px 5px;
+            border-bottom: 1px dashed #555;
+        }
+
+        .door { color: #e759a7; font-weight: bold; font-size: 10px; order: 1; }
+        .steering { font-size: 20px; order: 2; }
+
+        .seat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 35px) 30px repeat(2, 35px);
+            gap: 8px 6px;
+            justify-content: center;
+        }
+
+        .seat {
+            width: 35px; height: 35px;
+            background: #444; color: white;
+            border-radius: 6px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; transition: 0.2s;
+            border: 1px solid #555;
+        }
+
+        .seat:hover { border-color: #e759a7; }
+        .seat.selected { 
+            background: #e759a7 !important; 
+            box-shadow: 0 0 10px #e759a7;
+            border-color: white;
+        }
+        
+        .aisle { grid-column: 3; }
+
+        .booking-form {
+            max-width: 280px;
+            margin: 15px auto;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: none;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .confirm-btn {
+            width: 100%;
+            padding: 10px;
+            background: #e759a7;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Select Your Seats</h2>
+
+    <div class="bus-container">
+        <div class="cabin-front">
+            <div class="door">DOOR 🚪</div>
+            <div class="steering">⚙️</div>
+        </div>
+
+        <div class="seat-grid">
+            {% for seat in seats %}
+                <div class="seat" onclick="selectSeat(this, '{{ seat }}')">{{ seat }}</div>
+                {% if loop.index % 2 == 0 and loop.index % 4 != 0 %}
+                    <div class="aisle"></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+   <div class="booking-form">
+    <form action="/confirm" method="POST">
+        <input type="hidden" name="bus_id" value="{{ bus_id }}">
+        
+        <input type="hidden" name="travel_date" value="{{ travel_date }}">
+        
+        <input type="hidden" name="seat_no" id="seatInput" required>
+        <input type="text" name="passenger_name" placeholder="Enter Full Name" required>
+        <button type="submit" class="confirm-btn">Confirm Booking</button>
+    </form>
+</div>
+
+    <script>
+        let selectedSeats = [];
+
+        function selectSeat(element, seatId) {
+            // চেক করা হচ্ছে সিটটি কি আগে থেকেই সিলেক্ট করা আছে?
+            if (selectedSeats.includes(seatId)) {
+                // যদি থাকে, তবে লিস্ট থেকে বাদ দাও (Deselect)
+                selectedSeats = selectedSeats.filter(s => s !== seatId);
+                element.classList.remove('selected');
+            } else {
+                // যদি না থাকে, তবে লিস্টে যোগ করো (Select)
+                selectedSeats.push(seatId);
+                element.classList.add('selected');
+            }
+            
+            // সব সিলেক্ট করা সিটগুলোকে কমা দিয়ে হিডেন ইনপুটে রাখো
+            // উদাহরণ: "A1, A2, B3"
+            document.getElementById('seatInput').value = selectedSeats.join(', ');
+        }
+    </script>
+</body>
+</html>
