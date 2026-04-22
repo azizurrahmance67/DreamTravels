@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Dream Travels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1a1a1a;
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+        .payment-card {
+            background: #2d2d2d;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #444;
+        }
+        .payment-card h2 {
+            color: #e759a7;
+            margin-bottom: 10px;
+        }
+        .amount-box {
+            background: rgba(231, 89, 167, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+        .methods {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 20px;
+        }
+        .methods label {
+            cursor: pointer;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .methods input[type="radio"] { display: none; }
+        .methods input[type="radio"]:checked + span {
+            color: #e759a7;
+            font-weight: bold;
+        }
+        .input-group { margin-bottom: 15px; text-align: left; }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #444;
+            background: #1a1a1a;
+            color: white;
+            box-sizing: border-box;
+        }
+        .pay-btn {
+            width: 100%;
+            padding: 15px;
+            background: #e759a7;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .pay-btn:hover { background: #d44996; transform: scale(1.02); }
+    </style>
+</head>
+<body>
+
+<div class="payment-card">
+    <h2>Secure Payment</h2>
+    <div class="amount-box">
+        Total Payable: <b>৳{{ total_fare }}</b>
+    </div>
+
+    <form action="/process_payment" method="POST">
+        <input type="hidden" name="bus_id" value="{{ bus_id }}">
+        <input type="hidden" name="passenger_name" value="{{ passenger_name }}">
+        <input type="hidden" name="passenger_phone" value="{{ passenger_phone }}">
+        <input type="hidden" name="seat_no" value="{{ seat_no }}">
+        <input type="hidden" name="travel_date" value="{{ travel_date }}">
+        <input type="hidden" name="total_fare" value="{{ total_fare }}">
+
+        <div class="methods">
+            <label><input type="radio" name="method" value="bKash" checked> <span>bKash</span></label>
+            <label><input type="radio" name="method" value="Nagad"> <span>Nagad</span></label>
+            <label><input type="radio" name="method" value="Card"> <span>Bank Card</span></label>
+        </div>
+
+        <div class="input-group">
+            <input type="text" placeholder="Account Number (01XXXXXXXXX)" required>
+        </div>
+        <div class="input-group">
+            <input type="text" placeholder="Transaction ID (e.g. TRN789X)" required>
+        </div>
+
+        <button type="submit" class="pay-btn">CONFIRM & PAY</button>
+    </form>
+    <p style="font-size: 10px; color: #777; margin-top: 15px;">* This is a demo payment system for project purpose.</p>
+</div>
+
+</body>
+</html>

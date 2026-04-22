@@ -125,6 +125,7 @@
         
         <input type="hidden" name="seat_no" id="seatInput" required>
         <input type="text" name="passenger_name" placeholder="Enter Full Name" required>
+        <input type="text" name="passenger_phone" placeholder="Enter Phone Number" required>
         <button type="submit" class="confirm-btn">Confirm Booking</button>
     </form>
 </div>
@@ -133,19 +134,14 @@
         let selectedSeats = [];
 
         function selectSeat(element, seatId) {
-            // চেক করা হচ্ছে সিটটি কি আগে থেকেই সিলেক্ট করা আছে?
             if (selectedSeats.includes(seatId)) {
-                // যদি থাকে, তবে লিস্ট থেকে বাদ দাও (Deselect)
                 selectedSeats = selectedSeats.filter(s => s !== seatId);
                 element.classList.remove('selected');
             } else {
-                // যদি না থাকে, তবে লিস্টে যোগ করো (Select)
                 selectedSeats.push(seatId);
                 element.classList.add('selected');
             }
             
-            // সব সিলেক্ট করা সিটগুলোকে কমা দিয়ে হিডেন ইনপুটে রাখো
-            // উদাহরণ: "A1, A2, B3"
             document.getElementById('seatInput').value = selectedSeats.join(', ');
         }
     </script>

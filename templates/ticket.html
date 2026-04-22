@@ -12,8 +12,6 @@
             margin: 0;
             padding: 20px;
         }
-
-        /* টিকিট কার্ড ডিজাইন */
         #ticket {
             max-width: 450px;
             margin: 30px auto;
@@ -71,11 +69,9 @@
         small { color: #888; text-transform: uppercase; font-size: 10px; display: block; }
         .bold { font-weight: bold; }
 
-        /* প্রিন্ট করার জন্য স্পেশাল সেটিংস */
         @media print {
             body { background: white; padding: 0; }
-            button { display: none; } /* প্রিন্ট করার সময় বাটন দেখাবে না */
-            #ticket { 
+            button { display: none; }
                 box-shadow: none; 
                 margin: 0 auto; 
                 border: 1px solid #ddd;
